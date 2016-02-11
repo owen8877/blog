@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="../../stylesheets/styles.css">
     <link rel="stylesheet" href="../../stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+      canvas {
+        padding: 0;
+        margin: auto;
+        display: block;
+      }
+    </style>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,8 +25,9 @@
         <p></p>
         <h3><a href="../../index.html">Home Page</a></h3>
       </header>
-      <section style="background-color:black;">
+      <section>
         <canvas id="mainCanvas" height="500px" width="500px"></canvas>
+        <h2 id="win"></h2>
         <script type="text/javascript">
             function drawRect(gridx, gridy, ratio, color, alpha){
                 var block = 100;
@@ -51,10 +59,10 @@
             
             function updateCanvas(){
                 ctx.clearRect(0, 0, c.width, c.height);
-                drawSelect(selectx, selecty, "blue", 0.5);
+                drawSelect(selectx, selecty, "#303F9F", 0.5);
                 for (var x = 0; x < 5; ++x) {
                     for (var y = 0; y < 5; ++y) {
-                        drawRect(x, y, 0.8, colorIndex[lights[x][y]], 0.5);
+                        drawRect(x, y, 0.8, colorIndex[lights[x][y]], 0.6);
                         drawRect(x, y, 0.4, colorIndex[lights[x][y]], 1.0);
                     }
                 }
@@ -89,7 +97,7 @@
                     //console.log("Selected", selectx, selecty);
                     
                     if (lights.toString() === final.toString() && !lock) {
-                        alert("You Win!");
+                        document.getElementById("win").innerHTML = "You Win!";
                         lock = true;
                     }
                 }
@@ -104,13 +112,12 @@
             var c = document.getElementById("mainCanvas");
             var ctx = c.getContext("2d");
             
-            var colorIndex = ["black", "grey", "red", "yellow", "green"];
+            var colorIndex = ["#FFFFFF", "#727272", "#F44336", "#FFA000", "#388E3C"];
             
             var lights = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]];
             var final = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]];
             var selectx = 2, selecty = 2;
             var lock = false;
-            updateCanvas();
         </script>
       </section>
       <footer>Game made by HTML5<br>方向键控制，按下空格改变一个及周围灯的状态<br>所有灯变为黑色后胜利</footer>
