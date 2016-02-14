@@ -1,6 +1,7 @@
-.PHONY : list, delete, deletepage, newpage, clean
+.PHONY : makepage, delete, deletepage, newpage, clean
 
-list :
+makepage :
+	find pages -iname 'head_title.shtm' | xargs -d "\n" generate/makepage.sh
 	generate/contentlist.sh
 
 delete :

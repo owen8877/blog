@@ -9,8 +9,15 @@ var contin = true;
 
 // Initialization
 function init(){
-    console.log("--------Geometry test 0.0.0--------\n");
+    //console.log("--------Geometry test 0.0.0--------\n");
     initModel();
+}
+
+function restart(){
+    contin = true;
+    init();
+    document.getElementById("score").innerHTML = "Score : 0";
+    setTimeout(timerCallback, 33);
 }
 
 // Timer Callback
@@ -33,46 +40,10 @@ function keyboardUpCallback(){
 
 /* main*/
 
-/*
-var ctx = {};
-ctx.beginPath = context.beginPath;
-ctx.closePath = context.closePath;
-ctx.fill = context.fill;
-ctx.stroke = context.stroke;
-ctx.arc = function(cx, cy, ra, sa, ea) {
-    context.arc((cx+1)*screenSize/2, (-cy+1)*screenSize/2, ra, sa, ea);
-};
-ctx.moveTo = function(x, y){
-    context.moveTo((x+1)*screenSize/2, (-y+1)*screenSize/2);
-};
-ctx.lineTo = function(x, y){
-    context.lineTo((x+1)*screenSize/2, (-y+1)*screenSize/2);
-};
-ctx.rect = function(x, y, w, h){
-    context.rect((x+1)*screenSize/2, (-y+1)*screenSize/2, w*screenSize, h*screenSize);
-}
-ctx.fillStyle = context.fillStyle;
-ctx.strokeStyle = context.strokeStyle;
-*/
-
 can.setAttribute("width", screenWidth + "px");
 can.setAttribute("height", screenHeight + "px");
-//glutCreateWindow("Geometry");
-
-//Callback function registry
-//glutDisplayFunc(&display);
-//glutReshapeFunc(&reshape);
-
-//glutKeyboardFunc(&keyboardCallback);
-//glutKeyboardUpFunc(&keyboardUpCallback);
 document.onkeydown = keyboardCallback;
 document.onkeyup = keyboardUpCallback;
-
-//glutMouseFunc(&mouseKey);
-//glutMotionFunc(&mouseMotion);
-//glutPassiveMotionFunc(&mouseMotion);
-
-//Initialization
 init();
 
 setTimeout(timerCallback, 0);

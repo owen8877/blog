@@ -28,14 +28,11 @@ var Transform = {
         };
         t.production = function(a){
             var e = unit(a.th);
-            //console.log(a);
-            //return transform(this.th+((e.addition(tt.com.conj().production(this.com))).division((complex(1.0).addition(tt.com.production(this.com.conj().production(e)))))).arg(),((e.production(tt.com)).addition(this.com)).division((e.addition(tt.com.conj().production(this.com)))));
             return transform(this.th+((e.addition(a.com.conj().production(this.com))).division((complex(1.0).addition(a.com.production(this.com.conj().production(e)))))).arg(),((e.production(a.com)).addition(this.com)).division((e.addition(a.com.conj().production(this.com)))));
         };
         t.print = function(){
             console.log("c is :");
             this.com.print();
-            //console.log("th is :", this.th);
             console.log(this);
         }
         return t;

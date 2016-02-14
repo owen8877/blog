@@ -1,67 +1,78 @@
-<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Mandelbrot Set</title>
+    
+    <!--title-->
+<title>Mandelbrot Set</title>
 
+<script type="text/javascript">			
+	function slowBlur(){
+		var l = 0.8;
+		//alert("abc!");					
+		var canvas = document.getElementById("myCanvas");
+		var context = canvas.getContext("2d");
+		var width = canvas.getAttribute("width").replace(/[^0-9]/ig,"");
+		var height = canvas.getAttribute("height").replace(/[^0-9]/ig,"");
+		var beforeBlur = context.getImageData(0, 0, width, height);
+		var afterBlur = context.createImageData(width, height);
+		for (var x = 0; x < width; x++) {
+			for (var y = 0; y < height; y++) {
+				var index = x + y * width;
+				var alpha = beforeBlur.data[(x+y*width)*4+3];
+				afterBlur.data[(x+y*width)*4+3] += alpha * l;
+				afterBlur.data[(x+1+y*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x-1+y*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x+(y+1)*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x+(y-1)*width)*4+3] += alpha * (1-l)/4;
+			}
+		}
+		context.putImageData(afterBlur, 0, 0);
+	}
+</script>
+    
     <link rel="stylesheet" href="../../stylesheets/styles.css">
     <link rel="stylesheet" href="../../stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript">			
-			function slowBlur(){
-				var l = 0.8;
-				//alert("abc!");					
-				var canvas = document.getElementById("myCanvas");
-				var context = canvas.getContext("2d");
-				var width = canvas.getAttribute("width").replace(/[^0-9]/ig,"");
-				var height = canvas.getAttribute("height").replace(/[^0-9]/ig,"");
-				var beforeBlur = context.getImageData(0, 0, width, height);
-				var afterBlur = context.createImageData(width, height);
-				for (var x = 0; x < width; x++) {
-					for (var y = 0; y < height; y++) {
-						var index = x + y * width;
-						var alpha = beforeBlur.data[(x+y*width)*4+3];
-						afterBlur.data[(x+y*width)*4+3] += alpha * l;
-						afterBlur.data[(x+1+y*width)*4+3] += alpha * (1-l)/4;
-						afterBlur.data[(x-1+y*width)*4+3] += alpha * (1-l)/4;
-						afterBlur.data[(x+(y+1)*width)*4+3] += alpha * (1-l)/4;
-						afterBlur.data[(x+(y-1)*width)*4+3] += alpha * (1-l)/4;
-					}
-				}
-				context.putImageData(afterBlur, 0, 0);
-			}
-		</script>
   </head>
   <body>
     <div class="wrapper">
-      <header>
-        <h1>Mandelbrot Set</h1>
-        <h2>Feb 5 2016</h2>
-        <p></p>
-        <h3><a href="../../index.html">Home Page</a></h3>
-      </header>
-      <section>
-      <canvas id="myCanvas" height="200px" width="200px">Your Browser doesn't support label Canvas.</canvas>
-	    <input type="button" onclick="slowBlur()" value="Blur!" />
-	    <script type="text/javascript">
-		    function downloadJSAtOnload() {
-			    var element = document.createElement("script");
-			    element.src = "draw.js";
-			    document.body.appendChild(element);
-		    }
-		    if (window.addEventListener)
-			    window.addEventListener("load", downloadJSAtOnload, false);
-		    else if (window.attachEvent)
-			    window.attachEvent("onload", downloadJSAtOnload);
-		    else window.onload = downloadJSAtOnload;
-	    </script>
-      </section>
+      
+      <!--header-->
+<header>
+    <h1>Mandelbrot Set</h1>
+    <h2>Feb 5 2016</h2>
+    <p></p>
+    <h3><a href="../../index.html">Home Page</a></h3>
+</header>
+      
+      
+      <!--section-->
+<section>
+    <canvas id="myCanvas" height="200px" width="200px">Your Browser doesn't support label Canvas.</canvas>
+    <input type="button" onclick="slowBlur()" value="Blur!" />
+    <script type="text/javascript">
+        function downloadJSAtOnload() {
+            var element = document.createElement("script");
+            element.src = "draw.js";
+            document.body.appendChild(element);
+        }
+        if (window.addEventListener)
+            window.addEventListener("load", downloadJSAtOnload, false);
+        else if (window.attachEvent)
+            window.attachEvent("onload", downloadJSAtOnload);
+        else window.onload = downloadJSAtOnload;
+    </script>
+</section>
+      
+      
+      <!--footer-->
+<footer></footer>
+    
     </div>
     <script src="../../javascripts/scale.fix.js"></script>
-    
   </body>
 </html>

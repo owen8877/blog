@@ -1,0 +1,26 @@
+<title>Mandelbrot Set</title>
+
+<script type="text/javascript">			
+	function slowBlur(){
+		var l = 0.8;
+		//alert("abc!");					
+		var canvas = document.getElementById("myCanvas");
+		var context = canvas.getContext("2d");
+		var width = canvas.getAttribute("width").replace(/[^0-9]/ig,"");
+		var height = canvas.getAttribute("height").replace(/[^0-9]/ig,"");
+		var beforeBlur = context.getImageData(0, 0, width, height);
+		var afterBlur = context.createImageData(width, height);
+		for (var x = 0; x < width; x++) {
+			for (var y = 0; y < height; y++) {
+				var index = x + y * width;
+				var alpha = beforeBlur.data[(x+y*width)*4+3];
+				afterBlur.data[(x+y*width)*4+3] += alpha * l;
+				afterBlur.data[(x+1+y*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x-1+y*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x+(y+1)*width)*4+3] += alpha * (1-l)/4;
+				afterBlur.data[(x+(y-1)*width)*4+3] += alpha * (1-l)/4;
+			}
+		}
+		context.putImageData(afterBlur, 0, 0);
+	}
+</script>

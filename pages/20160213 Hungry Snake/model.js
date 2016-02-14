@@ -38,14 +38,12 @@ function initModel(){
 }
 
 function checkCollision(){
-    console.log("check!");
+    //console.log("check!");
     if (PoincareDistance(complex(0.0), snake.GetEnd()) >= boundRadius){
         console.log("You reached the boundary.\n");
         return true;
     }
     //for (deque<point>::iterator it = ++snake.begin(); it != snake.end(); ++it){
-    console.log(snake.GetSize());
-    snake.print();
     for (var i = 0; i < snake.GetSize()-1; ++i) {
         //if (PoincareDistance(*snake.begin(), *it) >= snakeStep*.99) continue;
         if (PoincareDistance(snake.GetEnd(), snake.GetElement(i)) >= snakeStep * 0.99) continue;
@@ -61,32 +59,27 @@ function checkFood(){
 
 
 function update(){
-    console.log("update");
+    //console.log("update");
     var stepInterval = 5;
-//     if (kbstat['w']) snakeDirNext = 0; 
-//     if (kbstat['a']) snakeDirNext = 1; 
-//     if (kbstat['s']) snakeDirNext = 2; 
-//     if (kbstat['d']) snakeDirNext = 3; 
     if (kbstat[38]) snakeDirNext = 0; 
     if (kbstat[37]) snakeDirNext = 1; 
     if (kbstat[40]) snakeDirNext = 2; 
     if (kbstat[39]) snakeDirNext = 3; 
     if (stepInterval === frameCount){
-        
         if ((snakeDirNext + snakeDir)%2 != 0) snakeDir = snakeDirNext;
         snake.EnQueue(t.inversion().tr(steps[snakeDir]));
-        console.log("new snake!");
-        snake.print();
+        //console.log("new snake!");
+        //snake.print();
         t = transform(steps[snakeDir]).production(t);
-        t.print();
+        //t.print();
 
         if (snakeInc > 0) snakeInc--;
         else snake.DeQueue();
 
         if (checkCollision()){
-            console.log("You lose! Score:", score);
+            //console.log("You lose! Score:", score);
             document.getElementById("score").innerHTML = "You lose! Score:" + score;
-	    contin = false;
+            contin = false;
             initModel();
             frameCount = 0;
             snakeDirNext = 0;
@@ -104,4 +97,5 @@ function update(){
         frameCount = 0;
     }
     frameCount++;
+    document.getElementById("fps").innerHTML = "FPS : " + getfps();
 }

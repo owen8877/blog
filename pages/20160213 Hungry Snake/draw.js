@@ -1,25 +1,8 @@
 var MAX = 100;
 var TINY = 0.01;
-
-/*
-extern vector<point> v;
-extern vector<line> l;
-extern vector<int> vr, vg, vb;
-extern vector<int> lr, lg, lb;
-extern transform t;
-extern deque<point> snake;
-extern double snakeStep;
-extern double boundRadius;
-extern point food;
-extern int score;
-*/
-
-/* global context */
-/* global t */
-/* global snakeStep */
-/* global boundRadius */
-/* global food */
-/* global snake */
+var fpscount = 0;
+var fps = 0;
+var t1 = Date.now();
 
 function glColor3f(r, g, b) {
     r = Math.floor(r*255);
@@ -37,19 +20,16 @@ function glVertex2d(x, y) {
 
 var snakeWidth = snakeStep / 2.0;
 
-/*
 function getfps(){
-    static var count = 0, fps = 0;
-    static time_t t1 = time(NULL);
-    time_t t = time(NULL);
-    if (t > t1) {
-        fps = count/(t-t1);
+    var t = Date.now();
+    //console.log(t);
+    if (t - t1 > 1000) {
+        fps = Math.floor(1000*fpscount/(t-t1));
         t1 = t;
-        count = 0;
-    }else ++count;
+        fpscount = 0;
+    }else fpscount++;
     return fps;
 }
-*/
 
 var screenSize = 500;
 //Window Initialization
@@ -184,7 +164,8 @@ void reshape(int width, int height){
 */
 function display(){
     context.clearRect(0, 0, screenSize, screenSize);
-    //transform t(0.0);
+    var tbackup = t;
+    if (document.getElementById("difficulty").checked) t = transform(0.0);
     context.fillStyle = "#FF0000";
     drawPoincareCircle(t.tr(point(0.0)), boundRadius);
 
@@ -201,14 +182,6 @@ function display(){
 
     glColor3f(1.0, 0.5, 1.0);
     drawPoint(t.tr(food));
-
-    //Drawing text infomation
-    //char str[257];
-    // sprintf(str, "Score: %d\n", score);
-    // glColor3f(1.0f, 1.0f, 0.5f);
-    // glRasterPos2d(-1, 1 - 24.0/screenSize);
-    // glutBitmapString(GLUT_BITMAP_HELVETICA_12, (unsigned char *)str);
-
-    //Flush the drawing process
-    // glFlush();
+    
+    t = tbackup;
 }
