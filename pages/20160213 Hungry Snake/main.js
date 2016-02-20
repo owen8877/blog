@@ -29,6 +29,7 @@ function init(){
     up_k = getCookie("up");
     down_k = getCookie("down");
     hard = getCookie("hard");
+    document.getElementById("difficulty").checked = hard;
     nice = getCookie("nice");
 
     initModel();
@@ -68,6 +69,7 @@ function debug(){
         document.getElementById("showKey").style.display = "block";
     }
     else {
+        if (!document.getElementById("debug").checked) return;
         document.onkeydown = keyboardCallback;
         contin = true;
         setTimeout(timerCallback, 0);
