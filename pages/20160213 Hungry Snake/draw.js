@@ -165,7 +165,7 @@ void reshape(int width, int height){
 function display(){
     context.clearRect(0, 0, screenSize, screenSize);
     var tbackup = t;
-    if (document.getElementById("difficulty").checked) t = transform(0.0);
+    if (hard) t = transform(0.0);
     context.fillStyle = "#FF0000";
     drawPoincareCircle(t.tr(point(0.0)), boundRadius);
 

@@ -8,6 +8,8 @@ var snakeDirNext = 0;
 var contin = true;
 var left_k, right_k, up_k, down_k;
 var last_key = 0;
+var hard;
+var nice;
 
 // Initialization
 function init(){
@@ -20,11 +22,15 @@ function init(){
         document.cookie = "up=38";
         document.cookie = "right=40";
         document.cookie = "down=39";
+        document.cookie = "nice=false";
     }
     left_k = getCookie("left");
     right_k = getCookie("right");
     up_k = getCookie("up");
     down_k = getCookie("down");
+    hard = getCookie("hard");
+    nice = getCookie("nice");
+
     initModel();
 }
 
@@ -71,16 +77,15 @@ function debug(){
     }
 }
 
-/*
-function getCookie(name){
-    for (var i in document.cookie.split(";")) {
-        console.log(i);
-        if (i.split("=")[0] === name) return i.split("=")[1];
-    }
-    //console.log("Can not find cookie by name :", name);
-    return undefined;
+function t_hard() {
+    hard = !hard;
+    document.cookie = "hard=" + hard;
 }
-*/
+
+function t_nice() {
+    nice = !nice;
+    document.cookie = "nice=" + nice;
+}
 
 function getCookie(name) {
     var arr,reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -92,14 +97,14 @@ function restart(){
     contin = true;
     init();
     document.getElementById("score").innerHTML = "Score : 0";
-    setTimeout(timerCallback, 33);
+    setTimeout(timerCallback, 0);
 }
 
 // Timer Callback
 function timerCallback(){
     update();
     display();
-    if (contin) setTimeout(timerCallback, 33);
+    if (contin) setTimeout(timerCallback, nice?16:33);
 }
 
 // Keyboard Callback
@@ -122,10 +127,6 @@ document.onkeyup = keyboardUpCallback;
 init();
 
 setTimeout(timerCallback, 0);
-
-window.onbeforeunload = function(){
-    document.cookie = "hard=" + document.getElementById("difficulty").checked;
-};
 
 //Main loop
 //glutMainLoop();

@@ -23,7 +23,8 @@
     <p></p>
     <h3><a href="../../index.html">Home Page</a></h3>
     <h2 id="score">Score : 0</h2>
-    <input type="checkbox" id="difficulty" />Hard Mode
+    <h2 id="hscore">High Score : 0</h2>
+    <input type="checkbox" id="difficulty" onclick="t_hard()" />Hard Mode
     <br />
     <input type="button" onclick="restart()" value="Restart" />
     <br />
@@ -34,6 +35,8 @@
     	<input type="button" value="Set As Right" onclick="setkey(1)" />
     	<input type="button" value="Set As Up" onclick="setkey(2)" />
     	<input type="button" value="Set As Down" onclick="setkey(3)" />
+    	<br />
+    	<input type="button" value="High fps" onclick="t_nice()" />
     </p>
 </header>
       
@@ -54,7 +57,7 @@
       
       
       <!--footer-->
-<footer>Hungry snake on Poincare Disk<br />Code from <a href="https://github.com/owen8877/Geometry/">Geometry</a> by owen8877 and shsty<br />Use ↑↓←→ to control the snake<br /><p id="fps"></p></footer>
+<footer>Hungry snake on Poincare Disk<br />Code from <a href="https://github.com/owen8877/Geometry/">Geometry</a> by owen8877 and shsty<br />Use ↑↓←→ to control the snake<br />You cannot play under FireFox!<br /><p id="fps"></p></footer>
     
     </div>
     <script src="../../javascripts/scale.fix.js"></script>

@@ -4,7 +4,8 @@
     <p></p>
     <h3><a href="../../index.html">Home Page</a></h3>
     <h2 id="score">Score : 0</h2>
-    <input type="checkbox" id="difficulty" />Hard Mode
+    <h2 id="hscore">High Score : 0</h2>
+    <input type="checkbox" id="difficulty" onclick="t_hard()" />Hard Mode
     <br />
     <input type="button" onclick="restart()" value="Restart" />
     <br />
@@ -15,5 +16,7 @@
     	<input type="button" value="Set As Right" onclick="setkey(1)" />
     	<input type="button" value="Set As Up" onclick="setkey(2)" />
     	<input type="button" value="Set As Down" onclick="setkey(3)" />
+    	<br />
+    	<input type="button" value="High fps" onclick="t_nice()" />
     </p>
 </header>
