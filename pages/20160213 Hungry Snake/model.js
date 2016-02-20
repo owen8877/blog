@@ -61,10 +61,10 @@ function checkFood(){
 function update(){
     //console.log("update");
     var stepInterval = 5;
-    if (kbstat[38]) snakeDirNext = 0; 
-    if (kbstat[37]) snakeDirNext = 1; 
-    if (kbstat[40]) snakeDirNext = 2; 
-    if (kbstat[39]) snakeDirNext = 3; 
+    if (kbstat[getCookie("up")]) snakeDirNext = 0; 
+    if (kbstat[getCookie("left")]) snakeDirNext = 1; 
+    if (kbstat[getCookie("down")]) snakeDirNext = 2; 
+    if (kbstat[getCookie("right")]) snakeDirNext = 3; 
     if (stepInterval === frameCount){
         if ((snakeDirNext + snakeDir)%2 != 0) snakeDir = snakeDirNext;
         snake.EnQueue(t.inversion().tr(steps[snakeDir]));
@@ -79,6 +79,7 @@ function update(){
         if (checkCollision()){
             //console.log("You lose! Score:", score);
             document.getElementById("score").innerHTML = "You lose! Score:" + score;
+            if (score > getCookie("high_score")) document.cookie = "high_score=" + score;
             contin = false;
             initModel();
             frameCount = 0;

@@ -10,7 +10,51 @@ var contin = true;
 // Initialization
 function init(){
     //console.log("--------Geometry test 0.0.0--------\n");
+    //init cookie
+    if (document.cookie.toString() === [""].toString()) {
+        document.cookie = "hard=false";
+        document.cookie = "high_score=0";
+        document.cookie = "left=37";
+        document.cookie = "up=38";
+        document.cookie = "right=40";
+        document.cookie = "down=39";
+    }
     initModel();
+}
+
+function setkey(number){
+    var s;
+    if (number === 0) s = "left";
+    else if (number === 1) s = "right";
+    else if (number === 2) s = "up";
+    else if (number === 3) s = "down";
+    s += "=";
+    document.cookie = s + document.getElementById("showKey").innerHTML;
+}
+
+function debug(){
+    if (contin) {
+        //Pause the game!
+        console.log("Ha!");
+        document.onkeydown = function(){
+            document.getElementById("showKey").innerHTML = event.keyCode;
+        };
+        contin = false;
+        document.getElementById("debugdir").style.display = "block";
+    }
+    else {
+        document.onkeydown = keyboardDownCallback;
+        contin = true;
+        document.getElementById("debugdir").style.display = "none";
+    }
+}
+
+function getCookie(name){
+    for (var i in document.cookie.split(";")) {
+        if (i.split("=")[0] === name) return i.split("=")[1];
+    }
+    console.log("Can not find cookie by name :", name);
+    return undefined;
 }
 
 function restart(){
@@ -47,6 +91,10 @@ document.onkeyup = keyboardUpCallback;
 init();
 
 setTimeout(timerCallback, 0);
+
+window.onbeforeunload = function(){
+    document.cookie = "hard=" + document.getElementById("difficulty").checked;
+};
 
 //Main loop
 //glutMainLoop();
