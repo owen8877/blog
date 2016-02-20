@@ -6,6 +6,8 @@ var screenHeight = 500;
 var frameCount = 1;
 var snakeDirNext = 0;
 var contin = true;
+var left_k, right_k, up_k, down_k;
+var last_key = 0;
 
 // Initialization
 function init(){
@@ -19,17 +21,32 @@ function init(){
         document.cookie = "right=40";
         document.cookie = "down=39";
     }
+    left_k = getCookie("left");
+    right_k = getCookie("right");
+    up_k = getCookie("up");
+    down_k = getCookie("down");
     initModel();
 }
 
 function setkey(number){
     var s;
-    if (number === 0) s = "left";
-    else if (number === 1) s = "right";
-    else if (number === 2) s = "up";
-    else if (number === 3) s = "down";
-    s += "=";
-    document.cookie = s + document.getElementById("showKey").innerHTML;
+    if (number === 0) {
+        s = "left";
+        left_k = last_key;
+    }
+    else if (number === 1) {
+        s = "right";
+        right_k = last_key;
+    }
+    else if (number === 2) {
+        s = "up";
+        up_k = last_key;
+    }
+    else if (number === 3) {
+        s = "down";
+        down_k = last_key;
+    }
+    document.cookie = s + "=" + last_key;
 }
 
 function debug(){
@@ -37,24 +54,38 @@ function debug(){
         //Pause the game!
         console.log("Ha!");
         document.onkeydown = function(){
-            document.getElementById("showKey").innerHTML = event.keyCode;
+            last_key = event.keyCode;
+            document.getElementById("showKey").innerHTML = "Last pressed key is : " + last_key;
         };
         contin = false;
         document.getElementById("debugdir").style.display = "block";
+        document.getElementById("showKey").style.display = "block";
     }
     else {
-        document.onkeydown = keyboardDownCallback;
+        document.onkeydown = keyboardCallback;
         contin = true;
+        setTimeout(timerCallback, 0);
         document.getElementById("debugdir").style.display = "none";
+        document.getElementById("showKey").style.display = "none";
+        document.getElementById("showKey").innerHTML = "";
     }
 }
 
+/*
 function getCookie(name){
     for (var i in document.cookie.split(";")) {
+        console.log(i);
         if (i.split("=")[0] === name) return i.split("=")[1];
     }
-    console.log("Can not find cookie by name :", name);
+    //console.log("Can not find cookie by name :", name);
     return undefined;
+}
+*/
+
+function getCookie(name) {
+    var arr,reg = new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if (arr=document.cookie.match(reg)) return unescape(arr[2]);
+    else    return undefined;
 }
 
 function restart(){

@@ -61,10 +61,10 @@ function checkFood(){
 function update(){
     //console.log("update");
     var stepInterval = 5;
-    if (kbstat[getCookie("up")]) snakeDirNext = 0; 
-    if (kbstat[getCookie("left")]) snakeDirNext = 1; 
-    if (kbstat[getCookie("down")]) snakeDirNext = 2; 
-    if (kbstat[getCookie("right")]) snakeDirNext = 3; 
+    if (kbstat[up_k]) snakeDirNext = 0; 
+    if (kbstat[left_k]) snakeDirNext = 1; 
+    if (kbstat[down_k]) snakeDirNext = 2; 
+    if (kbstat[right_k]) snakeDirNext = 3; 
     if (stepInterval === frameCount){
         if ((snakeDirNext + snakeDir)%2 != 0) snakeDir = snakeDirNext;
         snake.EnQueue(t.inversion().tr(steps[snakeDir]));
