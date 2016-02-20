@@ -1,0 +1,10 @@
+<header>
+    <h1>Hungry Snake</title>
+    <h2>Feb 13 2016</h2>
+    <p></p>
+    <h3><a href="../../index.html">Home Page</a></h3>
+    <h2 id="score">Score : 0</h2>
+    <input type="checkbox" id="difficulty" />Hard Mode
+    <br />
+    <input type="button" onclick="restart()" value="Restart" />
+</header>
