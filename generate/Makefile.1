@@ -1,0 +1,2 @@
+index.html: body_header.shtm body_section.shtm footer.shtm head_title.shtm
+	sed ../../template/article.html -e '/<!--title-->/r head_title.shtm' -e '/<!--header-->/r body_header.shtm' -e '/<!--section-->/r body_section.shtm' -e '/<!--footer-->/r footer.shtm' > index.html
