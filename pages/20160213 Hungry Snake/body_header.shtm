@@ -17,6 +17,6 @@
     	<input type="button" value="Set As Up" onclick="setkey(2)" />
     	<input type="button" value="Set As Down" onclick="setkey(3)" />
     	<br />
-    	<input type="button" value="High fps" onclick="t_nice()" />
+    	<input type="button" value="Faster" onclick="t_nice()" />
     </p>
 </header>
