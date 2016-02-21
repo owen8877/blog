@@ -8,8 +8,9 @@ var snakeDirNext = 0;
 var contin = true;
 var left_k, right_k, up_k, down_k;
 var last_key = 0;
-var hard;
+var hard, high_score;
 var nice;
+var gameon = true;
 
 // Initialization
 function init(){
@@ -20,18 +21,21 @@ function init(){
         document.cookie = "high_score=0";
         document.cookie = "left=37";
         document.cookie = "up=38";
-        document.cookie = "right=40";
-        document.cookie = "down=39";
+        document.cookie = "right=39";
+        document.cookie = "down=40";
         document.cookie = "nice=false";
     }
     left_k = getCookie("left");
     right_k = getCookie("right");
     up_k = getCookie("up");
     down_k = getCookie("down");
-    hard = getCookie("hard");
+    hard = (getCookie("hard")==="false")?false:true;
+    //console.log(hard);
     document.getElementById("difficulty").checked = hard;
-    nice = getCookie("nice");
-
+    nice = (getCookie("nice")==="false")?false:true;
+    high_score = getCookie("high_score");
+    //console.log(nice);
+    document.getElementById("hscore").innerHTML = "High Score : " + high_score;
     initModel();
 }
 
@@ -56,12 +60,14 @@ function setkey(number){
     document.cookie = s + "=" + last_key;
 }
 
-function debug(){
-    if (contin) {
+function debug() {
+    //console.log(contin, gameon, document.getElementById("debug").checked);
+    if (document.getElementById("debug").checked) {
         //Pause the game!
         console.log("Ha!");
-        document.onkeydown = function(){
-            last_key = event.keyCode;
+        document.onkeydown = function(evt){
+            evt = (evt) ? evt : ((window.event) ? window.event : ""); 
+            last_key = evt.keyCode ? evt.keyCode : evt.which;
             document.getElementById("showKey").innerHTML = "Last pressed key is : " + last_key;
         };
         contin = false;
@@ -69,7 +75,6 @@ function debug(){
         document.getElementById("showKey").style.display = "block";
     }
     else {
-        if (!document.getElementById("debug").checked) return;
         document.onkeydown = keyboardCallback;
         contin = true;
         setTimeout(timerCallback, 0);
@@ -96,28 +101,33 @@ function getCookie(name) {
 }
 
 function restart(){
+    gameon = true;
     contin = true;
     init();
     document.getElementById("score").innerHTML = "Score : 0";
     setTimeout(timerCallback, 0);
+    debug();
 }
 
 // Timer Callback
 function timerCallback(){
     update();
     display();
-    if (contin) setTimeout(timerCallback, nice?16:33);
+    //console.log(nice);
+    if (contin && gameon) setTimeout(timerCallback, nice?16:33);
 }
 
 // Keyboard Callback
-function keyboardCallback(){
-    var keyCode = event.keyCode;
-    kbstat[keyCode] = 1;
+function keyboardCallback(evt){
+    evt = (evt) ? evt : ((window.event) ? window.event : ""); 
+    var key = evt.keyCode ? evt.keyCode : evt.which;
+    kbstat[key] = 1;
 }
 
-function keyboardUpCallback(){
-    var keyCode = event.keyCode;
-    kbstat[keyCode] = 0;
+function keyboardUpCallback(evt){
+    evt = (evt) ? evt : ((window.event) ? window.event : ""); 
+    var key = evt.keyCode ? evt.keyCode : evt.which;
+    kbstat[key] = 0;
 }
 
 /* main*/

@@ -80,7 +80,7 @@ function update(){
             //console.log("You lose! Score:", score);
             document.getElementById("score").innerHTML = "You lose! Score:" + score;
             if (score > getCookie("high_score")) document.cookie = "high_score=" + score;
-            contin = false;
+            gameon = false;
             initModel();
             frameCount = 0;
             snakeDirNext = 0;
@@ -90,6 +90,10 @@ function update(){
             snakeInc += 2;
             score++;
             document.getElementById("score").innerHTML = "Score:" + score;
+            if (score > getCookie("high_score")) {
+                document.getElementById("hscore").innerHTML = "High Score : " + score;
+                document.cookie = "high_score=" + score;
+            }
             food = randPoint();
             while(PoincareDistance(complex(0.0), food) >= boundRadius) {
                 food = randPoint();
